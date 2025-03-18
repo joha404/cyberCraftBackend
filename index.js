@@ -1,16 +1,25 @@
 const express = require("express");
-const app = express();
 const cookieParser = require("cookie-parser");
-const path = require("path");
-const fs = require("fs");
-require("dotenv").config();
-const DBConnect = require("./src/config/db");
 const cors = require("cors");
+const dotenv = require("dotenv");
+const DBConnect = require("./src/config/db");
 
-const port = process.env.PORT || 5000; // Fallback port
+// Load environment variables
+dotenv.config();
 
-// Database Connection
-DBConnect();
+const app = express();
+const port = process.env.PORT || 5000; // Use 5000 if no PORT is defined
+
+// Connect to MongoDB
+(async () => {
+  try {
+    await DBConnect();
+    console.log("✅ Database connected successfully");
+  } catch (error) {
+    console.error("❌ Database connection failed:", error);
+    process.exit(1); // Stop server if DB connection fails
+  }
+})();
 
 // Allowed Origins for CORS
 const allowedOrigins = [
@@ -38,24 +47,21 @@ app.use(
 app.use(express.json()); // Replaces bodyParser.json()
 app.use(cookieParser());
 
-// Routes
+// ✅ API Routes
 app.get("/", (req, res) => {
-  res.send("Home page");
+  res.send("🏠 Home page - Server is running!");
 });
 
-// user Route
-const userRoute = require("./src/routes/userRoute");
-app.use("/api", userRoute);
+app.use("/api", require("./src/routes/userRoute")); // User Routes
+app.use("/message", require("./src/routes/messageRoute")); // Message Routes
+app.use("/employee", require("./src/routes/employeRoute")); // Employee Routes
 
-// mesage Route
-const messageRoute = require("./src/routes/messageRoute");
-app.use("/message", messageRoute);
-
-// employee Route
-const employeeRoute = require("./src/routes/employeRoute");
-app.use("/employee", employeeRoute);
+// 404 Not Found Middleware
+app.use((req, res) => {
+  res.status(404).json({ message: "❌ Route not found" });
+});
 
 // Start Server
 app.listen(port, () => {
-  console.log(`Server Running on port ${port}`);
+  console.log(`🚀 Server running on port ${port}`);
 });
