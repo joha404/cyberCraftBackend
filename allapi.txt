@@ -1,0 +1,36 @@
+user
+
+Sign Up user = http://localhost:3000/api/signup
+method = post
+
+Sign in user = http://localhost:3000/api/signin
+method = post
+
+
+message
+
+send message = http://localhost:3000/message/create
+method = post
+
+get message = http://localhost:3000/message
+method = get
+
+delete single message = http://localhost:3000/message/delete/:messageId
+method = delete
+
+
+employee
+
+create employee = http://localhost:3000/employee/create
+method = post
+
+get employee = http://localhost:3000/employee
+method = get 
+
+get single employee = http://localhost:3000/employee/:employeeID
+method = get
+
+delete single employee = http://localhost:3000/employee/delete/:employeeID
+method = delete
+
+
