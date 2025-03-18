@@ -2,11 +2,11 @@ const Employee = require("../models/employeSchema"); // Use model instead of sch
 
 // Create Employee
 const createEmployee = async (req, res) => {
-  const { employeeId, name, email, department, designation } = req.body;
+  const { employeId, name, email, department, designation } = req.body;
 
   try {
     const makeEmployee = await Employee.create({
-      employeeId,
+      employeId,
       name,
       email,
       department,

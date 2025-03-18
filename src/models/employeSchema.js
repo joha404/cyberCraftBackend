@@ -4,7 +4,8 @@ const AutoIncrement = require("mongoose-sequence")(mongoose);
 const employeSchema = new mongoose.Schema(
   {
     dbId: { type: Number, unique: true }, // Auto-incrementing field
-    employeId: { type: Number, required: true }, // Fixed 'Required' to 'required: true'
+    employeId: { type: String ,
+required: true }, // Fixed 'Required' to 'required: true'
     name: { type: String, required: true },
     email: { type: String, required: true, unique: true, match: /^\S+@\S+\.\S+$/ }, // Added regex for email validation
     department: { type: String, required: true },
