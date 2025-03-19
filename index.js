@@ -25,7 +25,7 @@ const port = process.env.PORT || 5000; // Use 5000 if no PORT is defined
 const allowedOrigins = [
   "https://cyber-craft-frontend.vercel.app",
   "http://localhost:5174",
-  "https://your-production-domain.com",
+  "https://cyber-craft-frontend-hgvtaldqj-joha404s-projects.vercel.app/",
 ];
 
 app.use(
